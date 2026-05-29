@@ -36,17 +36,17 @@ SELECT cu.first_name AS customer_name, cu.last_name AS customer_last_name, cu.em
 JOIN sakila.city ci ON co.country_id=ci.country_id
 JOIN sakila.address a ON ci.city_id=a.city_id
 JOIN sakila.customer cu ON a.address_id= cu.address_id
-WHERE co.country  LIKE '%canada%';
+WHERE co.country  LIKE 'Canada';
 
 -- 5. subqueries
-SELECT cu.first_name AS customer_name, cu.last_name AS customer_last_name FROM sakila.customer cu
+SELECT cu.first_name AS customer_name, cu.last_name AS customer_last_name, cu.email AS email FROM sakila.customer cu
 WHERE cu.address_id IN (
 	SELECT a.address_id FROM sakila.address a
 	WHERE a.city_id IN (
 		SELECT ci.city_id FROM sakila.city ci
 		WHERE ci.country_id IN (
 			SELECT co.country_id FROM sakila.country co
-			WHERE co.country LIKE '%canada%')
+			WHERE co.country LIKE 'Canada')
 			)
             );
 
